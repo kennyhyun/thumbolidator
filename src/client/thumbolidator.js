@@ -3,6 +3,16 @@ import PATH from 'path';
 
 const storage = sessionStorage;
 
+const config = { thumbnailName: '.thumbolidate' };
+
+export const setConfig = options => {
+  Object.keys(config).forEach(key => {
+    if (options.hasOwnProperty(key)) {
+      config[key] = options[key];
+    }
+  });
+};
+
 class Thumbolidator {
   constructor(albumUrl) {
     if (!albumUrl) throw new Error('albumUrl is required');
@@ -13,10 +23,10 @@ class Thumbolidator {
     const url = new URL(this.url);
     this.dirname = url.pathname;
 
-    url.pathname = PATH.join(this.dirname, '.thumbolidate.jpg');
+    url.pathname = PATH.join(this.dirname, `${config.thumbnailName}.jpg`);
     this.thumboUrl = url.href;
 
-    url.pathname = PATH.join(this.dirname, '.microthumb.jpg');
+    url.pathname = PATH.join(this.dirname, `${config.thumbnailName}.micro.jpg`);
     this.microUrl = url.href;
 
     this.bgSize = memoize(this._bgSize);
