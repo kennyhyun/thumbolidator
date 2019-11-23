@@ -12,10 +12,15 @@ const albumUrls1 = [
   'http://192.168.8.204:8019/ORGDATA/_BAK_2006/060408/',
 ];
 
-const albumUrls = [
+const albumUrls2 = [
   'http://localhost:8051/Kenny/',
   'http://localhost:8051/Kenny2/',
   'http://localhost:8051/PhotoKina Demo - 329 Images/',
+];
+
+const albumUrls = [
+  'http://localhost:8051/images1/',
+  'http://localhost:8051/images2/',
 ];
 
 function App() {
