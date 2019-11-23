@@ -58,10 +58,13 @@ $ npm start
 
 ## Todos and limitations
 
-- There is a maximum number of images in the directory
-- jpegtran bin runs only in linux/mac and might not run in some environment
+- Paging `.thumboldate` files
+  - There is a maximum number of images in the directory
+- build `jpegtran` binary using gyp
+  - currently runs only in Linux/Mac and might not run in some environment
 - Needs a web-server setting to return `.thumbolidate` file for the directory
-
+- Cannot remove memoized cache
+  - To manage cache for memory usage
 
 ## License
 
