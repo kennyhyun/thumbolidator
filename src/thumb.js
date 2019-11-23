@@ -38,7 +38,9 @@ export const makeThumbnails = async (filename, { path, size } = {}) => {
 
   const thumbSize = Number(GENERATE_THUMB_DIR) || 0;
   if (thumbSize) {
-    try { await mkdirAsync(PATH.resolve(path, 'thumb')); } catch (e) {}
+    try {
+      await mkdirAsync(PATH.resolve(path, 'thumb'));
+    } catch (e) {}
     const { width, height } = await thumbo.metadata();
     const autoWidth = width > height ? null : thumbSize;
     const autoHeight = width > height ? thumbSize : null;
