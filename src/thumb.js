@@ -7,7 +7,7 @@ import { promisify } from 'util';
 const writeFileAsync = promisify(writeFile);
 const mkdirAsync = promisify(mkdir);
 
-const { GENERATE_THUMB_DIR } = process.env;
+const { THUMBNAIL_NAME = '.thumbolidate', GENERATE_THUMB_DIR } = process.env;
 
 const exec = (cmd, args) =>
   new Promise((res, rej) => {
@@ -30,8 +30,8 @@ const exec = (cmd, args) =>
 
 // const tmpMicroThumbnailName = '.micro';
 const tmpThumbnailName = '.thumbo';
-const thumbnailName = '.thumbolidate.jpg';
-const microThumbnailName = '.microthumb.jpg';
+const thumbnailName = `${THUMBNAIL_NAME}.jpg`;
+const microThumbnailName = `${THUMBNAIL_NAME}.micro.jpg`;
 
 export const makeThumbnails = async (filename, { path, size } = {}) => {
   const thumbo = await sharp(PATH.resolve(path, filename)).rotate();

@@ -3,7 +3,9 @@ import { compose, branch, mapProps, renderComponent } from 'recompose';
 import fetch from 'fetch-hoc';
 import PATH from 'path';
 
-import { Thumbo } from 'thumbolidator';
+import { Thumbo, setConfig } from 'thumbolidator';
+
+setConfig({ thumbnailName: 'thumb' });
 
 const resolve = (url, path) => {
   const u = new URL(url || 'http://localhost');

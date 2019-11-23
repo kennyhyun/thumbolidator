@@ -2,26 +2,9 @@ import React from 'react';
 import './App.css';
 import ImageContainer from './imageContainer';
 
-const albumUrls1 = [
-  'http://192.168.8.204:8019/2011-11-26%20ip111126/',
-  'http://192.168.8.204:8019/2011-11-25/',
-  'http://192.168.8.204:8019/2012-05-21/',
-  'http://192.168.8.204:8019/iPhotoLibrary.2016/',
-  'http://192.168.8.204:8019/ORGDATA/100921_iphone3gs/',
-  'http://192.168.8.204:8019/ORGDATA/_BAK_2005/dongwon/050821_dongwon/',
-  'http://192.168.8.204:8019/ORGDATA/_BAK_2006/060408/',
-];
+const { REACT_APP_BASE_URL = window ? window.location.origin : '//localhost' } = process.env;
 
-const albumUrls2 = [
-  'http://localhost:8051/Kenny/',
-  'http://localhost:8051/Kenny2/',
-  'http://localhost:8051/PhotoKina Demo - 329 Images/',
-];
-
-const albumUrls = [
-  'http://localhost:8051/images1/',
-  'http://localhost:8051/images2/',
-];
+const albumUrls = [`${REACT_APP_BASE_URL}/images/images1`, `${REACT_APP_BASE_URL}/images/images2`];
 
 function App() {
   return (

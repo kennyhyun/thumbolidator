@@ -6,6 +6,8 @@ import { saveThumbnails, makeMicroFromThumb, makeThumbnails } from './thumb';
 
 const writeFileAsync = promisify(writeFile);
 
+const { THUMBNAIL_NAME = '.thumbolildate' } = process.env;
+
 export class Thumbolidate {
   constructor({ tileSize = 64, gridSize = 4, files, path: _path }) {
     if (!_path) throw new Error('path is required');
@@ -43,7 +45,7 @@ export class Thumbolidate {
 
   _thumboFileName() {
     console.log(this);
-    return path.resolve(this.path, '.thumbolidate');
+    return path.resolve(this.path, THUMBNAIL_NAME);
   }
 
   _dumpThumbo() {
