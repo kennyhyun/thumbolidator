@@ -19,12 +19,12 @@ const albumUrls = [
 ];
 
 function App() {
-  console.log(albumUrls1, albumUrls);
   return (
     <div className="App">
       <header className="App-header">
         {albumUrls.map((url = '') => (
-          <ImageContainer key={url} src={url} />
+          /* A React Component to show all the images in the path */
+          <ImageContainer key={url} path={url} />
         ))}
       </header>
     </div>

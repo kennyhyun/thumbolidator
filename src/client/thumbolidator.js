@@ -133,7 +133,8 @@ class Thumbolidator {
     const { col, row, tileSize, gridSize, size } = this._cssParams(cssParams);
     return this._css({ tileSize, gridSize, size, row, col }, style);
   }
-
 }
+
+export const getThumbolidator = memoize(path => new Thumbolidator(path));
 
 export default Thumbolidator;

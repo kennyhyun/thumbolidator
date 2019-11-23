@@ -11,36 +11,30 @@ const resolve = (url, path) => {
   return u.href;
 };
 
-console.log(Thumbo);
-
-const ImageContainer = ({ src = 'http://localhost/images/', data, files = [] }) => {
-  const cacheburst = 0; // new Date().getTime();
-  return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      {files.map(
-        (file, idx) =>
-          (file[0] !== 'x' && Math.random() >= 0) && (
-            <Thumbo key={`thumbo:${file}`} src={resolve(src, file)} cacheburst={cacheburst} size={200}/>
-          ),
-      )}
-    </div>
-  );
-};
+const ImageContainer = ({ path = 'http://localhost/images/', files = [] }) => (
+  <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    {files.map(f => (
+      <Thumbo key={`thumbo:${f}`} src={resolve(path, f)} size={160} />
+    ))}
+  </div>
+);
 
 export default compose(
-  fetch(({ src }) => src),
-  branch(({ loading }) => !!loading, renderComponent(({ src }) => <div>Loading {src}...</div>)),
+  fetch(({ path }) => path),
+  branch(({ loading }) => !!loading, renderComponent(({ path }) => <div>Loading {path}...</div>)),
   branch(
     ({ error }) => !!error,
-    renderComponent(props => <div style={{ color: 'red', fontSize: '0.6em' }}>Error while getting {props.src}</div>),
+    renderComponent(props => <div style={{ color: 'red', fontSize: '0.6em' }}>Error while getting {props.path}</div>)
   ),
-  mapProps(({ data, ...props }) => {
+  /* data: thumbolidate meta file */
+  mapProps(({ data, loading, error, ...props }) => {
     const lines = data.split('\n');
-    const [, tileSize, gridSize] = lines[0].split(':');
     return {
       ...props,
-      files: lines.slice(1),
-      data: { tileSize, gridSize },
+      /* remove first line which is comment,
+       * if the first char is 'x', it's deleted
+       */
+      files: lines.slice(1).filter(f => f[0] !== 'x'),
     };
-  }),
+  })
 )(ImageContainer);
