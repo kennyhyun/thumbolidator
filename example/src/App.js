@@ -2,9 +2,12 @@ import React from 'react';
 import './App.css';
 import ImageContainer from './imageContainer';
 
-const { REACT_APP_BASE_URL = window ? window.location.origin : '//localhost' } = process.env;
+const { PUBLIC_URL = '', REACT_APP_BASE_URL = window ? window.location.origin : '//localhost' } = process.env;
 
-const albumUrls = [`${REACT_APP_BASE_URL}/images/images1`, `${REACT_APP_BASE_URL}/images/images2`];
+const albumUrls = [
+  `${REACT_APP_BASE_URL}${PUBLIC_URL}/images/images1`,
+  `${REACT_APP_BASE_URL}${PUBLIC_URL}/images/images2`,
+];
 
 function App() {
   return (
