@@ -1,0 +1,10 @@
+version: "3"
+services:
+  web:
+    image: nginx:1.16-alpine
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./public:/opt/www
+    ports:
+      - "8019:80"
+    command: nginx -g 'daemon off;'

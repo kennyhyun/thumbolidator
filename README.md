@@ -42,6 +42,20 @@ class Example extends Component {
 }
 ```
 
+### Running example in your local environment
+
+Needs Docker
+
+Put some image files in `public` directory with sub-directories.
+
+```bash
+$ ./scripts/thumbolidate.sh ./public/images1
+$ ./scripts/thumbolidate.sh ./public/images2
+$ docker-compose up -d
+$ cd example
+$ npm start
+```
+
 ## Todos and limitations
 
 - There is a maximum number of images in the directory
