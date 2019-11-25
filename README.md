@@ -42,7 +42,11 @@ import { Thumbo } from 'thumbolidator'
 class Example extends Component {
   render () {
     return (
-      <Thumbo src="http://localhost/images" size={64} />
+      <>
+        {files.map(file => (
+          <Thumbo src={`http://localhost/images/${file}`} key={file} size={64} />
+        ))}
+      </>
     )
   }
 }
