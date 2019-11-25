@@ -40,7 +40,7 @@ import React, { Component } from 'react'
 import { Thumbo } from 'thumbolidator'
 
 class Example extends Component {
-  render () {
+  render ({ files }) {
     return (
       <>
         {files.map(file => (
