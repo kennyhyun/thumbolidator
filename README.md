@@ -16,6 +16,8 @@ Try demo [here](https://kennyhyun.github.io/thumbolidator/)!
 
 [Jpegtran](https://jpegclub.org/jpegtran/) can merge jpeg files into a big jpeg file. This will help reduce downloading many number of jpeg files through http.
 
+Jpegtran drop-patch does not re-encode jpegs so thumbnails can be added later on without dropping quality.`
+
 Thumbolidator creates two tiles of the thumbnails, Micro and Thumbo. The `Thumbo` react component will shows a micro thumbnail while loading thumbnails.
 
 ## Install
@@ -68,13 +70,14 @@ $ npm start
 
 ## Todos and limitations
 
-- Paging `.thumboldate` files
+- [ ] Paginating `.thumboldate` files
   - There is a maximum number of images in the directory
-- build `jpegtran` binary using gyp
+- [ ] Building `jpegtran` binary using gyp
   - currently runs only in Linux/Mac and might not run in some environment
 - Needs a web-server setting to return `.thumbolidate` file for the directory
-- Cannot remove memoized cache
-  - To manage cache for memory usage
+- [ ] Managing cache for memory usage
+  - Cannot remove memoized cache
+- [ ] Add/remove thumbnails
 
 ## License
 
