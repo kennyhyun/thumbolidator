@@ -70,6 +70,7 @@ $ npm start
 
 ## Todos and limitations
 
+- [ ] Expose scripts to npm packages
 - [ ] Paginating `.thumboldate` files
   - There is a maximum number of images in the directory
 - [ ] Building `jpegtran` binary using gyp
