@@ -23,7 +23,8 @@ Thumbolidator creates two tiles of the thumbnails, Micro and Thumbo. The `Thumbo
 ## Install
 
 ```bash
-npm install --save thumbolidator
+npm install -g thumbolidator
+npm install --save react-thumbolidator
 ```
 
 ## Usage
@@ -31,7 +32,7 @@ npm install --save thumbolidator
 ### Server-side script
 
 ```bash
-$ ./scripts/thumbolidate.sh ./public/images/2019-11-23/
+$ thumbolidator ./public/images/2019-11-23/
 ```
 
 ### React component
@@ -61,8 +62,8 @@ Needs Docker
 Put some image files in `public` directory with sub-directories.
 
 ```bash
-$ ./scripts/thumbolidate.sh ./public/images1
-$ ./scripts/thumbolidate.sh ./public/images2
+$ thumbolidator ./public/images1
+$ thumbolidator ./public/images2
 $ docker-compose up -d
 $ cd example
 $ npm start
@@ -70,7 +71,7 @@ $ npm start
 
 ## Todos and limitations
 
-- [ ] Expose scripts to npm packages
+- [x] Expose scripts to npm packages
 - [ ] Paginating `.thumboldate` files
   - There is a maximum number of images in the directory
 - [ ] Building `jpegtran` binary using gyp

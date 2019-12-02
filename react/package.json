@@ -1,7 +1,7 @@
 {
-  "name": "thumbolidator",
-  "version": "0.0.1",
-  "description": "Thumbnail image consolidator",
+  "name": "react-thumbolidator",
+  "version": "0.0.2",
+  "description": "A React component for thumbolidator",
   "author": "kennyhyun",
   "license": "MIT",
   "repository": "kennyhyun/thumbolidator",

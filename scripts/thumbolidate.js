@@ -1,31 +1,56 @@
-import { writeFileSync, readdir } from 'fs';
-import path from 'path';
-import { promisify } from 'util';
-import { Thumbolidate } from '../src/thumbolidate';
+const path = require('path');
+const { writeFile } = require('fs');
+const { promisify } = require('util');
 
-const readdirAsync = promisify(readdir);
+const { saveThumbnails, makeMicroFromThumb, makeThumbnails } = require('./thumb');
 
-const [, , srcPath] = process.argv;
+const writeFileAsync = promisify(writeFile);
 
-const exts = ['.jpeg', '.jpg'];
-const { MICROTILESIZE = 16, TILESIZE = 128, GRIDSIZE = 16, QUALITY = 75 } = process.env;
-const MAX_LEN = GRIDSIZE * GRIDSIZE;
+const { THUMBNAIL_NAME = '.thumbolildate' } = process.env;
 
-(async () => {
-  const files = await readdirAsync(srcPath);
-  const jpegInfo = files
-    .map(f => path.parse(f))
-    .filter(f => f.name[0] !== '.' && exts.includes(f.ext.toLowerCase()))
-    .slice(0, MAX_LEN);
+class Thumbolidate {
+  constructor({ tileSize = 64, gridSize = 4, files, path: _path }) {
+    if (!_path) throw new Error('path is required');
+    if (!files || !files.length) throw new Error('invalid files');
+    this.tileSize = tileSize;
+    this.gridSize = gridSize;
+    this.files = [...files];
+    this.path = _path;
+  }
 
-  const thumbolidate = new Thumbolidate({
-    tileSize: TILESIZE,
-    gridSize: GRIDSIZE,
-    files: jpegInfo.map(it => it.base),
-    path: srcPath,
-  });
+  async build() {
+    await this._dumpThumbo();
+    await this.files.reduce(async (p, file, idx) => {
+      await p;
+      const thumbo = await makeThumbnails(file, { path: this.path, size: this.tileSize }); // exec imgk .thumbo, .micro
+      const thumbname = await saveThumbnails(thumbo, {
+        path: this.path,
+        tileSize: this.tileSize,
+        gridSize: this.gridSize,
+        index: idx,
+      }); // crop/drop .thumbo, .micro into target
+      if (idx === this.files.length - 1) {
+        // TODO: remove .thumbo, .micro jpg
+        await makeMicroFromThumb(thumbname, { path: this.path, gridSize: this.gridSize });
+      }
+    }, null);
+  }
 
-  console.log(thumbolidate);
+  _dump() {
+    const lines = [];
+    lines.push(`#thumbolidate:${this.tileSize}:${this.gridSize}`);
+    this.files.forEach(f => lines.push(` ${f}`));
+    return lines.join('\n');
+  }
 
-  await thumbolidate.build();
-})();
+  _thumboFileName() {
+    console.log(this);
+    return path.resolve(this.path, THUMBNAIL_NAME);
+  }
+
+  _dumpThumbo() {
+    return writeFileAsync(this._thumboFileName(), this._dump());
+  }
+}
+
+module.exports = Thumbolidate;

@@ -1,8 +1,8 @@
-import { spawn } from 'child_process';
-import sharp from 'sharp';
-import PATH from 'path';
-import { mkdir, writeFile } from 'fs';
-import { promisify } from 'util';
+const { spawn } = require('child_process');
+const sharp = require('sharp');
+const PATH = require('path');
+const { mkdir, writeFile } = require('fs');
+const { promisify } = require('util');
 
 const writeFileAsync = promisify(writeFile);
 const mkdirAsync = promisify(mkdir);
@@ -33,7 +33,7 @@ const tmpThumbnailName = '.thumbo';
 const thumbnailName = `${THUMBNAIL_NAME}.jpg`;
 const microThumbnailName = `${THUMBNAIL_NAME}.micro.jpg`;
 
-export const makeThumbnails = async (filename, { path, size } = {}) => {
+const makeThumbnails = async (filename, { path, size } = {}) => {
   const thumbo = await sharp(PATH.resolve(path, filename)).rotate();
 
   const thumbSize = Number(GENERATE_THUMB_DIR) || 0;
@@ -54,7 +54,7 @@ export const makeThumbnails = async (filename, { path, size } = {}) => {
   return tmpThumbnailName;
 };
 
-export const saveThumbnails = async (filename, { path, tileSize, gridSize, index } = {}) => {
+const saveThumbnails = async (filename, { path, tileSize, gridSize, index } = {}) => {
   const crop = index === 0;
   const row = parseInt(index / gridSize, 10);
   const col = index % gridSize;
@@ -65,12 +65,18 @@ export const saveThumbnails = async (filename, { path, tileSize, gridSize, index
   if (!crop) params.push(PATH.resolve(path, filename));
   params.push('-outfile', PATH.resolve(path, thumbnailName));
   params.push(crop ? PATH.resolve(path, filename) : PATH.resolve(path, thumbnailName));
-  await exec('./bin/jpegtran', params);
+  await exec('../bin/jpegtran', params);
   return thumbnailName;
 };
 
-export const makeMicroFromThumb = async (filename, { path, size = 16, gridSize } = {}) => {
+const makeMicroFromThumb = async (filename, { path, size = 16, gridSize } = {}) => {
   const micro = await sharp(PATH.resolve(path, filename)).resize(size * gridSize);
   await writeFileAsync(PATH.resolve(path, microThumbnailName), await micro.toBuffer());
   return microThumbnailName;
+};
+
+module.exports = {
+  makeThumbnails,
+  saveThumbnails,
+  makeMicroFromThumb,
 };

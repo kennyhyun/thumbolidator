@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getThumbolidator } from '../client/thumbolidator';
+import { getThumbolidator } from './thumbolidator';
 
 const { REACT_APP_IMG_ELEM } = process.env;
 
