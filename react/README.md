@@ -1,12 +1,14 @@
-# Thumbolidator
+# React Thumbolidator
 
-> Thumbnail image consolidator
+> A React component for Thumbolidator
+
+See also [Thumbolidator](https://www.npmjs.com/package/thumbolidator)
 
 This is still a proof of concept. Please don't use in any serious project.
 
 [![NPM](https://img.shields.io/npm/v/thumbolidator.svg)](https://www.npmjs.com/package/thumbolidator)
 
-![thumb.micro](https://kennyhyun.github.io/thumbolidator/images/images1/thumb.micro.jpg) ![thumb.micro](https://kennyhyun.github.io/thumbolidator/images/images2/thumb.micro.jpg)
+![thumb.micro](https://kennyhyun.github.io/thumbolidator/images/images1/thumb.micro.jpg) [thumb.micro](https://kennyhyun.github.io/thumbolidator/images/images2/thumb.micro.jpg)
 
 Try demo [here](https://kennyhyun.github.io/thumbolidator/)!
 
@@ -21,24 +23,15 @@ Thumbolidator creates two tiles of the thumbnails, Micro and Thumbo. The `Thumbo
 ## Install
 
 ```bash
-npm install -g thumbolidator
 npm install --save react-thumbolidator
 ```
 
 ## Usage
 
-### Server-side script
-
-```bash
-$ thumbolidator ./public/images/2019-11-23/
-```
-
-### React component
-
 ```jsx
 import React, { Component } from 'react'
 
-import { Thumbo } from 'thumbolidator'
+import { Thumbo } from 'react-thumbolidator'
 
 class Example extends Component {
   render ({ files }) {
@@ -53,24 +46,11 @@ class Example extends Component {
 }
 ```
 
-### Running example in your local environment
+## Todos and limitations
 
-Needs Docker
-
-Put some image files in `public` directory with sub-directories.
-
-```bash
-$ thumbolidator ./public/images1
-$ thumbolidator ./public/images2
-$ docker-compose up -d
-$ cd example
-$ npm start
-```
-
-## See also
-
-[React thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/react/README.md)
-[thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/scripts/README.md)
+- Needs a web-server setting to return `.thumbolidate` file for the directory
+- [ ] Managing cache for memory usage
+  - Cannot remove memoized cache
 
 ## License
 

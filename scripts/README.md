@@ -2,6 +2,8 @@
 
 > Thumbnail image consolidator
 
+See also [React Thumbolidator](https://www.npmjs.com/package/react-thumbolidator)
+
 This is still a proof of concept. Please don't use in any serious project.
 
 [![NPM](https://img.shields.io/npm/v/thumbolidator.svg)](https://www.npmjs.com/package/thumbolidator)
@@ -22,55 +24,22 @@ Thumbolidator creates two tiles of the thumbnails, Micro and Thumbo. The `Thumbo
 
 ```bash
 npm install -g thumbolidator
-npm install --save react-thumbolidator
 ```
 
 ## Usage
-
-### Server-side script
 
 ```bash
 $ thumbolidator ./public/images/2019-11-23/
 ```
 
-### React component
+## Todos and limitations
 
-```jsx
-import React, { Component } from 'react'
-
-import { Thumbo } from 'thumbolidator'
-
-class Example extends Component {
-  render ({ files }) {
-    return (
-      <>
-        {files.map(file => (
-          <Thumbo src={`http://localhost/images/${file}`} key={file} size={64} />
-        ))}
-      </>
-    )
-  }
-}
-```
-
-### Running example in your local environment
-
-Needs Docker
-
-Put some image files in `public` directory with sub-directories.
-
-```bash
-$ thumbolidator ./public/images1
-$ thumbolidator ./public/images2
-$ docker-compose up -d
-$ cd example
-$ npm start
-```
-
-## See also
-
-[React thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/react/README.md)
-[thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/scripts/README.md)
+- [x] Expose scripts to npm packages
+- [ ] Paginating `.thumboldate` files
+  - There is a maximum number of images in the directory
+- [ ] Building `jpegtran` binary using gyp
+  - currently runs only in Linux/Mac and might not run in some environment
+- [ ] Add/remove thumbnails
 
 ## License
 
