@@ -2,7 +2,7 @@
 
 > Thumbnail image consolidator
 
-This is still a proof of concept. Please don't use in any serious project.
+This is still a proof of concept. Please don't use in any serious project. Check [Todos](https://github.com/kennyhyun/thumbolidator/tree/master/scripts#todos-and-limitations) for further details.
 
 [![NPM](https://img.shields.io/npm/v/thumbolidator.svg)](https://www.npmjs.com/package/thumbolidator)
 
@@ -69,8 +69,8 @@ $ npm start
 
 ## See also
 
-- [React thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/react/README.md)
-- [thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/scripts/README.md)
+- [React Thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/react/README.md)
+- [Thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/scripts/README.md)
 
 ## License
 
