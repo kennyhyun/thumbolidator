@@ -69,8 +69,8 @@ $ npm start
 
 ## See also
 
-[React thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/react/README.md)
-[thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/scripts/README.md)
+- [React thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/react/README.md)
+- [thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/scripts/README.md)
 
 ## License
 
