@@ -7,7 +7,7 @@ const { promisify } = require('util');
 const writeFileAsync = promisify(writeFile);
 const mkdirAsync = promisify(mkdir);
 
-const { THUMBNAIL_NAME = '.thumbolidate', GENERATE_THUMB_DIR } = process.env;
+const { JPEGTRAN_BIN = './bin/jpegtran', THUMBNAIL_NAME = '.thumbolidate', GENERATE_THUMB_DIR } = process.env;
 
 const exec = (cmd, args) =>
   new Promise((res, rej) => {
@@ -65,7 +65,7 @@ const saveThumbnails = async (filename, { path, tileSize, gridSize, index } = {}
   if (!crop) params.push(PATH.resolve(path, filename));
   params.push('-outfile', PATH.resolve(path, thumbnailName));
   params.push(crop ? PATH.resolve(path, filename) : PATH.resolve(path, thumbnailName));
-  await exec('../bin/jpegtran', params);
+  await exec(JPEGTRAN_BIN, params);
   return thumbnailName;
 };
 
