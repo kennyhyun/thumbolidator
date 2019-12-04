@@ -72,6 +72,10 @@ $ npm start
 - [React Thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/react/README.md)
 - [Thumbolidator](https://github.com/kennyhyun/thumbolidator/blob/master/scripts/README.md)
 
+# Todo
+
+- [ ] Add unit tests
+
 ## License
 
 MIT © [kennyhyun](https://github.com/kennyhyun)
