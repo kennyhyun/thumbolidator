@@ -34,7 +34,7 @@ const tmpThumbnailName = '.thumbo';
 const thumbnailName = `${THUMBNAIL_NAME}.jpg`;
 const microThumbnailName = `${THUMBNAIL_NAME}.micro.jpg`;
 
-const makeThumbnails = async (filename, { path, size } = {}) => {
+const makeThumbnail = async (filename, { path, size } = {}) => {
   const thumbo = await sharp(PATH.resolve(path, filename)).rotate();
 
   const thumbSize = Number(GENERATE_THUMB_DIR) || 0;
@@ -55,7 +55,7 @@ const makeThumbnails = async (filename, { path, size } = {}) => {
   return tmpThumbnailName;
 };
 
-const saveThumbnails = async (filename, { path, tileSize, gridSize, index } = {}) => {
+const saveThumbnail = async (filename, { path, tileSize, gridSize, index } = {}) => {
   const crop = index === 0;
   const row = parseInt(index / gridSize, 10);
   const col = index % gridSize;
@@ -78,7 +78,7 @@ const makeMicroFromThumb = async (filename, { path, size = 16, gridSize } = {}) 
 };
 
 module.exports = {
-  makeThumbnails,
-  saveThumbnails,
+  makeThumbnail,
+  saveThumbnail,
   makeMicroFromThumb,
 };

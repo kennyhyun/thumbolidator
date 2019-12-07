@@ -2,7 +2,7 @@ const path = require('path');
 const { writeFile } = require('fs');
 const { promisify } = require('util');
 
-const { saveThumbnails, makeMicroFromThumb, makeThumbnails } = require('./thumb');
+const { saveThumbnail, makeMicroFromThumb, makeThumbnail } = require('./thumb');
 
 const writeFileAsync = promisify(writeFile);
 
@@ -22,8 +22,8 @@ class Thumbolidate {
     await this._dumpThumbo();
     await this.files.reduce(async (p, file, idx) => {
       await p;
-      const thumbo = await makeThumbnails(file, { path: this.path, size: this.tileSize }); // exec imgk .thumbo, .micro
-      const thumbname = await saveThumbnails(thumbo, {
+      const thumbo = await makeThumbnail(file, { path: this.path, size: this.tileSize }); // exec imgk .thumbo, .micro
+      const thumbname = await saveThumbnail(thumbo, {
         path: this.path,
         tileSize: this.tileSize,
         gridSize: this.gridSize,
