@@ -44,7 +44,7 @@ class Thumbolidate {
   }
 
   _thumboFileName() {
-    console.log(this);
+    // console.log(this);
     return path.resolve(this.path, THUMBNAIL_NAME);
   }
 

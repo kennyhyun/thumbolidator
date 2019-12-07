@@ -8,12 +8,13 @@ const writeFileAsync = promisify(writeFile);
 const mkdirAsync = promisify(mkdir);
 
 const { JPEGTRAN_BIN = './bin/jpegtran', THUMBNAIL_NAME = '.thumbolidate', GENERATE_THUMB_DIR } = process.env;
+const jpegtran = JPEGTRAN_BIN[0] === '/' ? JPEGTRAN_BIN : PATH.resolve(__dirname, JPEGTRAN_BIN);
 
 const exec = (cmd, args) =>
   new Promise((res, rej) => {
     const subp = spawn(cmd, args);
     const cmdline = [cmd].concat(args).join(' ');
-    console.log(`running ${cmdline}`);
+    // console.log(`running ${cmdline}`);
     subp.stdout.on('data', data => {
       console.log(`${cmdline}: ${data}`);
     });
@@ -65,7 +66,8 @@ const saveThumbnails = async (filename, { path, tileSize, gridSize, index } = {}
   if (!crop) params.push(PATH.resolve(path, filename));
   params.push('-outfile', PATH.resolve(path, thumbnailName));
   params.push(crop ? PATH.resolve(path, filename) : PATH.resolve(path, thumbnailName));
-  await exec(JPEGTRAN_BIN, params);
+  process.stdout.write('.');
+  await exec(jpegtran, params);
   return thumbnailName;
 };
 
