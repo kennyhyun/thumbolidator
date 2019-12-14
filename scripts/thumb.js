@@ -27,8 +27,6 @@ const exec = (cmd, args) =>
 
 // const tmpMicroThumbnailName = '.micro';
 const tmpThumbnailName = '.thumbo';
-const thumbnailName = `${THUMBNAIL_NAME}.jpg`;
-const microThumbnailName = `${THUMBNAIL_NAME}.micro.jpg`;
 
 const makeThumbnail = async (filename, { path, size } = {}) => {
   const thumbo = await sharp(PATH.resolve(path, filename)).rotate();
@@ -51,7 +49,8 @@ const makeThumbnail = async (filename, { path, size } = {}) => {
   return tmpThumbnailName;
 };
 
-const saveThumbnail = async (filename, { path, tileSize, gridSize, index } = {}) => {
+const saveThumbnail = async (filename, { path, tileSize, gridSize, index, page = 0 } = {}) => {
+  const thumbnailName = `${THUMBNAIL_NAME}${page ? `.${page}` : ''}.jpg`;
   const crop = index === 0;
   const row = parseInt(index / gridSize, 10);
   const col = index % gridSize;
@@ -67,8 +66,10 @@ const saveThumbnail = async (filename, { path, tileSize, gridSize, index } = {})
   return thumbnailName;
 };
 
-const makeMicroFromThumb = async (filename, { path, size = 16, gridSize } = {}) => {
+const makeMicroFromThumb = async (filename, { path, size = 16, gridSize, page = 0 } = {}) => {
+  const microThumbnailName = `${THUMBNAIL_NAME}.micro${page ? `.${page}` : ''}.jpg`;
   const micro = await sharp(PATH.resolve(path, filename)).resize(size * gridSize);
+  // console.log('micro:', filename, '-->', microThumbnailName);
   await fsp.writeFile(PATH.resolve(path, microThumbnailName), await micro.toBuffer());
   return microThumbnailName;
 };
