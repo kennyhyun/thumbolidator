@@ -11,17 +11,24 @@ const { MICROTILESIZE = 16, TILESIZE = 128, GRIDSIZE = 16, QUALITY = 75 } = proc
 const MAX_LEN = GRIDSIZE * GRIDSIZE;
 
 (async () => {
-  const files = await fsp.readdir(srcPath);
-  const jpegInfo = files
-    .map(f => path.parse(f))
-    .filter(f => f.name[0] !== '.' && exts.includes(f.ext.toLowerCase()))
-    .slice(0, MAX_LEN);
+  const files = await fsp.readdir(srcPath, { withFileTypes: true });
+  const info = files.reduce((ret, file) => {
+    const parsed = path.parse(file.name);
+    if (parsed.base[0] === '.') return ret;
+    if (file.isDirectory()) {
+      ret.directories.push(parsed.base);
+    } else if (exts.includes(parsed.ext.toLowerCase())) {
+      ret.files.push(parsed.base);
+    }
+    return ret;
+  }, { files: [], directories: [] });
+  // console.log(info);
 
   const thumbolidate = new Thumbolidate({
     tileSize: TILESIZE,
     gridSize: GRIDSIZE,
-    files: jpegInfo.map(it => it.base),
     path: srcPath,
+    ...info,
   });
 
   console.log(thumbolidate);

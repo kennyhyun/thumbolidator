@@ -6,12 +6,14 @@ const { saveThumbnail, makeMicroFromThumb, makeThumbnail } = require('./thumb');
 const { THUMBNAIL_NAME = '.thumbolidate' } = process.env;
 
 class Thumbolidate {
-  constructor({ tileSize = 64, gridSize = 4, files, path: _path }) {
+  constructor({ tileSize = 64, gridSize = 4, files = [], directories = [], path: _path }) {
     if (!_path) throw new Error('path is required');
-    if (!files || !files.length) throw new Error('invalid files');
+    if (!files || !directories) throw new Error('invalid files/directories');
+    if (!files.length && !directories.length) throw new Error('both files and directories are empty');
     this.tileSize = tileSize;
     this.gridSize = gridSize;
     this.files = [...files];
+    this.directories = [...directories];
     this.path = _path;
   }
 
@@ -36,6 +38,7 @@ class Thumbolidate {
   _dump() {
     const lines = [];
     lines.push(`#thumbolidate:${this.tileSize}:${this.gridSize}`);
+    this.directories.forEach(f => lines.push(`d${f}`));
     this.files.forEach(f => lines.push(` ${f}`));
     return lines.join('\n');
   }
