@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { writeFileSync, readdir } = require('fs');
+const { readdir } = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 const Thumbolidate = require('./thumbolidate');

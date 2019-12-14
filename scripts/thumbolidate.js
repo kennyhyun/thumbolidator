@@ -6,7 +6,7 @@ const { saveThumbnail, makeMicroFromThumb, makeThumbnail } = require('./thumb');
 
 const writeFileAsync = promisify(writeFile);
 
-const { THUMBNAIL_NAME = '.thumbolildate' } = process.env;
+const { THUMBNAIL_NAME = '.thumbolidate' } = process.env;
 
 class Thumbolidate {
   constructor({ tileSize = 64, gridSize = 4, files, path: _path }) {
