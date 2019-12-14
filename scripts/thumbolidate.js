@@ -1,10 +1,7 @@
 const path = require('path');
-const { writeFile } = require('fs');
-const { promisify } = require('util');
+const fsp = require('fs').promises;
 
 const { saveThumbnail, makeMicroFromThumb, makeThumbnail } = require('./thumb');
-
-const writeFileAsync = promisify(writeFile);
 
 const { THUMBNAIL_NAME = '.thumbolidate' } = process.env;
 
@@ -49,7 +46,7 @@ class Thumbolidate {
   }
 
   _dumpThumbo() {
-    return writeFileAsync(this._thumboFileName(), this._dump());
+    return fsp.writeFile(this._thumboFileName(), this._dump());
   }
 }
 

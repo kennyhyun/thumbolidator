@@ -1,11 +1,7 @@
 const { spawn } = require('child_process');
 const sharp = require('sharp');
 const PATH = require('path');
-const { mkdir, writeFile } = require('fs');
-const { promisify } = require('util');
-
-const writeFileAsync = promisify(writeFile);
-const mkdirAsync = promisify(mkdir);
+const fsp = require('fs').promises;
 
 const { JPEGTRAN_BIN = './bin/jpegtran', THUMBNAIL_NAME = '.thumbolidate', GENERATE_THUMB_DIR } = process.env;
 const jpegtran = JPEGTRAN_BIN[0] === '/' ? JPEGTRAN_BIN : PATH.resolve(__dirname, JPEGTRAN_BIN);
@@ -40,17 +36,17 @@ const makeThumbnail = async (filename, { path, size } = {}) => {
   const thumbSize = Number(GENERATE_THUMB_DIR) || 0;
   if (thumbSize) {
     try {
-      await mkdirAsync(PATH.resolve(path, 'thumb'));
+      await fsp.mkdir(PATH.resolve(path, 'thumb'));
     } catch (e) {}
     const { width, height } = await thumbo.metadata();
     const autoWidth = width > height ? null : thumbSize;
     const autoHeight = width > height ? thumbSize : null;
     const buffer1 = await thumbo.resize(autoWidth, autoHeight).toBuffer();
-    await writeFileAsync(PATH.resolve(path, 'thumb', filename), buffer1);
+    await fsp.writeFile(PATH.resolve(path, 'thumb', filename), buffer1);
   }
 
   const buffer = await thumbo.resize(size, size).toBuffer();
-  await writeFileAsync(PATH.resolve(path, tmpThumbnailName), buffer);
+  await fsp.writeFile(PATH.resolve(path, tmpThumbnailName), buffer);
 
   return tmpThumbnailName;
 };
@@ -73,7 +69,7 @@ const saveThumbnail = async (filename, { path, tileSize, gridSize, index } = {})
 
 const makeMicroFromThumb = async (filename, { path, size = 16, gridSize } = {}) => {
   const micro = await sharp(PATH.resolve(path, filename)).resize(size * gridSize);
-  await writeFileAsync(PATH.resolve(path, microThumbnailName), await micro.toBuffer());
+  await fsp.writeFile(PATH.resolve(path, microThumbnailName), await micro.toBuffer());
   return microThumbnailName;
 };
 

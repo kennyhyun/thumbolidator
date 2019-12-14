@@ -1,11 +1,8 @@
 #!/usr/bin/env node
 
-const { readdir } = require('fs');
+const fsp = require('fs').promises;
 const path = require('path');
-const { promisify } = require('util');
 const Thumbolidate = require('./thumbolidate');
-
-const readdirAsync = promisify(readdir);
 
 const [, , srcPath] = process.argv;
 
@@ -14,7 +11,7 @@ const { MICROTILESIZE = 16, TILESIZE = 128, GRIDSIZE = 16, QUALITY = 75 } = proc
 const MAX_LEN = GRIDSIZE * GRIDSIZE;
 
 (async () => {
-  const files = await readdirAsync(srcPath);
+  const files = await fsp.readdir(srcPath);
   const jpegInfo = files
     .map(f => path.parse(f))
     .filter(f => f.name[0] !== '.' && exts.includes(f.ext.toLowerCase()))
