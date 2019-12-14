@@ -18,7 +18,6 @@ class Thumbolidate {
   constructor({ tileSize = 64, gridSize = 4, files = [], directories = [], path: _path }) {
     if (!_path) throw new Error('path is required');
     if (!files || !directories) throw new Error('invalid files/directories');
-    if (!files.length && !directories.length) throw new Error('both files and directories are empty');
     this.tileSize = tileSize;
     this.gridSize = gridSize;
     this.files = [...files];
@@ -37,19 +36,25 @@ class Thumbolidate {
 
   _processFiles(files = [], page = 0) {
     return files.reduce(async (p, file, idx) => {
-      await p;
-      const thumbo = await makeThumbnail(file, { path: this.path, size: this.tileSize }); // exec imgk .thumbo, .micro
-      const thumbname = await saveThumbnail(thumbo, {
-        path: this.path,
-        tileSize: this.tileSize,
-        gridSize: this.gridSize,
-        index: idx,
-        page,
-      }); // crop/drop .thumbo, .micro into target
-      if (idx === files.length - 1) {
+      const previousThumbname = await p;
+      const thumbname = await makeThumbnail(file, { path: this.path, size: this.tileSize })
+        .then(thumbo => {
+          if (!thumbo) return null;
+          return saveThumbnail(thumbo, {
+            path: this.path,
+            tileSize: this.tileSize,
+            gridSize: this.gridSize,
+            index: idx,
+            page,
+          });
+        })
+        .catch(e => console.error(e) || null);
+      const filename = thumbname || previousThumbname;
+      if (filename && idx === files.length - 1) {
         // TODO: remove .thumbo, .micro jpg
-        await makeMicroFromThumb(thumbname, { path: this.path, gridSize: this.gridSize, page });
+        await makeMicroFromThumb(filename, { path: this.path, gridSize: this.gridSize, page });
       }
+      return filename;
     }, null);
   }
 

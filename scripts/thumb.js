@@ -43,8 +43,13 @@ const makeThumbnail = async (filename, { path, size } = {}) => {
     await fsp.writeFile(PATH.resolve(path, 'thumb', filename), buffer1);
   }
 
-  const buffer = await thumbo.resize(size, size).toBuffer();
-  await fsp.writeFile(PATH.resolve(path, tmpThumbnailName), buffer);
+  try {
+    const buffer = await thumbo.resize(size, size).toBuffer();
+    await fsp.writeFile(PATH.resolve(path, tmpThumbnailName), buffer);
+  } catch (e) {
+    console.error(e.message);
+    return null;
+  }
 
   return tmpThumbnailName;
 };
