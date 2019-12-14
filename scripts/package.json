@@ -1,6 +1,6 @@
 {
   "name": "thumbolidator",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A thumbnail-generator",
   "main": "index.js",
   "bin": {
