@@ -6,7 +6,7 @@ See also [Thumbolidator](https://www.npmjs.com/package/thumbolidator)
 
 This is still a proof of concept. Please don't use in any serious project.
 
-[![NPM](https://img.shields.io/npm/v/thumbolidator.svg)](https://www.npmjs.com/package/thumbolidator)
+[![NPM](https://img.shields.io/npm/v/react-thumbolidator.svg)](https://www.npmjs.com/package/react-thumbolidator)
 
 ![thumb.micro](https://kennyhyun.github.io/thumbolidator/images/images1/thumb.micro.jpg) [thumb.micro](https://kennyhyun.github.io/thumbolidator/images/images2/thumb.micro.jpg)
 
@@ -49,6 +49,7 @@ class Example extends Component {
 ## Todos and limitations
 
 - Needs a web-server setting to return `.thumbolidate` file for the directory
+- [ ] Support pagination
 - [ ] Managing cache for memory usage
   - Cannot remove memoized cache
 

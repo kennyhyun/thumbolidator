@@ -35,7 +35,8 @@ $ thumbolidator ./public/images/2019-11-23/
 ## Todos and limitations
 
 - [x] Expose scripts to npm packages
-- [ ] Paginating `.thumboldate` files
+- [x] List directories and process recursively
+- [x] Paginating `.thumboldate` files
   - There is a maximum number of images in the directory
 - [ ] Building `jpegtran` binary using gyp
   - currently runs only in Linux/Mac and might not run in some environment

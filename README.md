@@ -5,6 +5,7 @@
 This is still a proof of concept. Please don't use in any serious project. Check [Todos](https://github.com/kennyhyun/thumbolidator/tree/master/scripts#todos-and-limitations) for further details.
 
 [![NPM](https://img.shields.io/npm/v/thumbolidator.svg)](https://www.npmjs.com/package/thumbolidator)
+[![NPM](https://img.shields.io/npm/v/react-thumbolidator.svg)](https://www.npmjs.com/package/react-thumbolidator)
 
 ![thumb.micro](https://kennyhyun.github.io/thumbolidator/images/images1/thumb.micro.jpg) ![thumb.micro](https://kennyhyun.github.io/thumbolidator/images/images2/thumb.micro.jpg)
 
