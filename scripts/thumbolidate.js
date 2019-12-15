@@ -47,8 +47,7 @@ class Thumbolidate {
             index: idx,
             page,
           });
-        })
-        .catch(e => console.error(e) || null);
+        });
       const filename = thumbname || previousThumbname;
       if (filename && idx === files.length - 1) {
         // TODO: remove .thumbo, .micro jpg

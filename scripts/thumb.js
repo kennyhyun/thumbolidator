@@ -18,7 +18,7 @@ const exec = (cmd, args) =>
       console.log(`stderr ${cmdline}: ${data}`);
     });
     subp.on('error', err => {
-      rej(new Error(err));
+      rej(err);
     });
     subp.on('close', code => {
       res(code);
@@ -83,4 +83,5 @@ module.exports = {
   makeThumbnail,
   saveThumbnail,
   makeMicroFromThumb,
+  exec,
 };
