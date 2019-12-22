@@ -1,2 +1,5 @@
-export Thumbolidator, { setConfig } from './thumbolidator';
-export Thumbo from './thumbo';
+import Thumbolidator from './thumbolidator';
+import Thumbo from './thumbo';
+
+export { setConfig } from './thumbolidator';
+export { Thumbo, Thumbolidator };
