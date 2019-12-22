@@ -49,7 +49,7 @@ class Example extends Component {
 ## Todos and limitations
 
 - Needs a web-server setting to return `.thumbolidate` file for the directory
-- [ ] Support pagination
+- [x] Support pagination
 - [ ] Managing cache for memory usage
   - Cannot remove memoized cache
 
