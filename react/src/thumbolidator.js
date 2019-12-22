@@ -1,9 +1,11 @@
 import memoize from 'lodash/memoize';
-import PATH from 'path';
 
 const storage = sessionStorage;
-
 const config = { thumbnailName: '.thumbolidate' };
+const join = (...args) => {
+  const str = args.join('/');
+  return str.replace('////g', '/');
+};
 
 export const setConfig = options => {
   Object.keys(config).forEach(key => {
@@ -17,18 +19,12 @@ class Thumbolidator {
   constructor(albumUrl) {
     if (!albumUrl) throw new Error('albumUrl is required');
     this.url = albumUrl;
-    if (this.url.slice(-1)[0] !== '/') {
-      this.url = `${this.url}/`;
-    }
     const url = new URL(this.url);
     this.dirname = url.pathname;
-
-    url.pathname = PATH.join(this.dirname, `${config.thumbnailName}.jpg`);
+    url.pathname = join(this.dirname, `${config.thumbnailName}.jpg`);
     this.thumboUrl = url.href;
-
-    url.pathname = PATH.join(this.dirname, `${config.thumbnailName}.micro.jpg`);
+    url.pathname = join(this.dirname, `${config.thumbnailName}.micro.jpg`);
     this.microUrl = url.href;
-
     this.bgSize = memoize(this._bgSize);
     this.bgPosition = memoize(this._bgPosition);
     this.storageKey = `thumbolidator:${this.url}`;
