@@ -20,18 +20,46 @@ class Thumbolidator {
     if (!albumUrl) throw new Error('albumUrl is required');
     this.url = albumUrl;
     const url = new URL(this.url);
-    this.dirname = url.pathname;
-    url.pathname = join(this.dirname, `${config.thumbnailName}.jpg`);
-    this.thumboUrl = url.href;
-    url.pathname = join(this.dirname, `${config.thumbnailName}.micro.jpg`);
-    this.microUrl = url.href;
+    const { protocol, pathname, host } = url;
+    this._parsed = { host, pathname, protocol };
+    url.pathname = join(pathname, `${config.thumbnailName}.jpg`);
+    this._thumboUrl = url.href;
+    url.pathname = join(pathname, `${config.thumbnailName}.micro.jpg`);
+    this._microUrl = url.href;
     this.bgSize = memoize(this._bgSize);
     this.bgPosition = memoize(this._bgPosition);
     this.storageKey = `thumbolidator:${this.url}`;
     this.requestPromise = this._requestThumbolidate();
   }
 
-  getDummyThumboElement(url) {
+  _getUrl(hostUrl, path) {
+    const { host, pathname, protocol } = hostUrl;
+    const args = [...(path && [path]), `${protocol}//${host}`];
+    return new URL(...args).toString();
+  }
+
+  _getPagedUrl(filename, thumbName = config.thumbnailName) {
+    if (this.data && filename) {
+      const idx = this.map[filename];
+      const { tilsSize, gridSize } = this.data;
+      if (idx >= 0 && idx > gridSize * gridSize) {
+        const page = Math.floor(idx / (gridSize * gridSize));
+        const { port, host, pathname, protocol } = this._parsed;
+        return this._getUrl(this._parsed, join(pathname, `${thumbName}.${page}.jpg`));
+      }
+    }
+    return '';
+  }
+
+  thumboUrl(filename = '') {
+    return this._getPagedUrl(filename, config.thumbnailName) || this._thumboUrl;
+  }
+
+  microUrl(filename = '') {
+    return this._getPagedUrl(filename, `${config.thumbnailName}.micro`) || this._microUrl;
+  }
+
+  getDummyThumboElement() {
     if (this.dummyThumbo) return this.dummyThumbo;
     const dummy = document.createElement('img');
     dummy.style.display = 'none';
@@ -42,14 +70,15 @@ class Thumbolidator {
     return this.dummyThumbo;
   }
 
-  getDummyMicroElement(url) {
+  getDummyMicroElement() {
     if (this.dummyMicro) return this.dummyMicro;
     const dummy = document.createElement('img');
-    dummy.src = this.microUrl;
-    dummy.style.display = 'none';
-    const promise = new Promise(res => {
+    const promise = new Promise(async res => {
+      await this.requestPromise;
+      dummy.src = this.microUrl();
+      dummy.style.display = 'none';
       dummy.onload = () => {
-        this.dummyThumbo.element.src = this.thumboUrl;
+        this.dummyThumbo.element.src = this.thumboUrl();
         res();
       };
     });
@@ -103,7 +132,7 @@ class Thumbolidator {
     const { tileSize, gridSize } = this.data;
     const idx = this.map[filename];
     const col = idx % gridSize;
-    const row = parseInt(idx / gridSize, 10);
+    const row = parseInt(idx / gridSize, 10) % gridSize;
     // console.log(filename, idx, col, row, gridSize, tileSize);
     return { size, tileSize, gridSize, col, row };
   }

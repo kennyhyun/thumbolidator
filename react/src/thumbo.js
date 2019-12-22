@@ -60,7 +60,7 @@ export default class Thumbo extends React.Component {
       thumbUrl,
     } = this;
     const { size = 128 } = this.props;
-    const imgUrl = type === 'thumbo' ? thumbo.thumboUrl : thumbo.microUrl;
+    const imgUrl = type === 'thumbo' ? thumbo.thumboUrl(filename) : thumbo.microUrl(filename);
     const cssParams = { size, filename };
     const imgStyle = type === 'thumbo' ? thumbo.thumboCss(cssParams) : thumbo.microCss(cssParams);
 
