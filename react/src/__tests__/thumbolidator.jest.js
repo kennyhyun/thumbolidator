@@ -45,9 +45,10 @@ describe('Thumbolidator', () => {
   describe('requestPromise', () => {
     it('should await metadata and set data properly', async () => {
       await thumbolidator.requestPromise;
-      const piece = { [mockResp.split('\n')[4].substr(1)]: 3 };
+      const piece = { [mockResp.split('\n')[4].substr(1)]: 2 };
       expect(thumbolidator.map).toMatchObject(piece);
-      expect(Object.keys(thumbolidator.map).length).toBe(mockResp.split('\n').length - 1);
+      // exclude header and directories
+      expect(Object.keys(thumbolidator.map).length).toBe(mockResp.split('\n').length - 2);
     });
 
   });

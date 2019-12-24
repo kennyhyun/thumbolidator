@@ -40,7 +40,7 @@ class Thumbolidator {
 
   _getPagedUrl(filename, thumbName = config.thumbnailName) {
     if (this.data && filename) {
-      const idx = this.map[filename];
+      const idx = this._getIndex(filename);
       const { tilsSize, gridSize } = this.data;
       if (idx >= 0 && idx > gridSize * gridSize) {
         const page = Math.floor(idx / (gridSize * gridSize));
@@ -90,7 +90,7 @@ class Thumbolidator {
     const lines = data.split('\n');
     const [, tileSize, gridSize] = lines[0].split(':');
     const files = lines.slice(1);
-    const map = files.reduce((o, file, idx) => {
+    const map = files.filter(f => f[0] !== 'd').reduce((o, file, idx) => {
       o[encodeURI(file.substr(1))] = idx;
       return o;
     }, {});
@@ -115,6 +115,10 @@ class Thumbolidator {
     return this.request;
   }
 
+  _getIndex(filename) {
+    return this.map[filename];
+  }
+
   _bgSize({ tileSize, gridSize, size }) {
     const scale = size / tileSize;
     return tileSize * gridSize * scale;
@@ -130,7 +134,7 @@ class Thumbolidator {
       return {};
     }
     const { tileSize, gridSize } = this.data;
-    const idx = this.map[filename];
+    const idx = this._getIndex(filename);
     const col = idx % gridSize;
     const row = parseInt(idx / gridSize, 10) % gridSize;
     // console.log(filename, idx, col, row, gridSize, tileSize);
