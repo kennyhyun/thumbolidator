@@ -2,6 +2,7 @@ import Thumbolidator from '../thumbolidator';
 import URL from 'url';
 
 const mockResp = `#thumbolidate:128:16
+dFolder
  DSC00001.JPG
  DSC00002.JPG
  DSC00003.JPG
@@ -39,6 +40,16 @@ describe('Thumbolidator', () => {
       expect(thumbolidator.getDummyMicroElement).toBeTruthy();
       expect(thumbolidator.getDummyThumboElement).toBeTruthy();
     });
+  });
+
+  describe('requestPromise', () => {
+    it('should await metadata and set data properly', async () => {
+      await thumbolidator.requestPromise;
+      const piece = { [mockResp.split('\n')[4].substr(1)]: 3 };
+      expect(thumbolidator.map).toMatchObject(piece);
+      expect(Object.keys(thumbolidator.map).length).toBe(mockResp.split('\n').length - 1);
+    });
+
   });
 
   describe('thumboUrl', () => {
