@@ -3,7 +3,7 @@ import { compose, branch, mapProps, renderComponent } from 'recompose';
 import fetch from 'fetch-hoc';
 import PATH from 'path';
 
-import { Thumbo, setConfig } from 'thumbolidator';
+import { Thumbo, setConfig } from 'react-thumbolidator';
 
 setConfig({ thumbnailName: 'thumb' });
 

@@ -3,8 +3,22 @@ services:
   web:
     image: nginx:1.16-alpine
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./public:/opt/www
+      - ./docker/web/conf.d:/etc/nginx/conf.d
+      - ./docker/web/public:/opt/www
+      - ./data/masters:/public/images
+      - ./react/example:/app
     ports:
       - "8019:80"
     command: nginx -g 'daemon off;'
+  photomoa:
+    image: kennyhyun/photomoa:v0.1.0
+    env_file:
+      - .env
+    volumes:
+      #- /etc/passwd:/etc/passwd:ro
+      #- /etc/group:/etc/group:ro
+      - ./etc/localtime:/etc/localtime
+      - ./docker/inotify/config:/config
+      - ./data/dropbox:/dir1
+      - ./data/masters:/masters
+      - ./docker/inotify/scripts:/task/scripts

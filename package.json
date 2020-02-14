@@ -1,0 +1,25 @@
+{
+  "name": "thumbolidator",
+  "version": "1.0.0",
+  "description": "> Thumbnail image consolidator",
+  "main": "index.js",
+  "scripts": {
+    "setenv1": "echo UID=$(id -u $USER) > .env",
+    "setenv2": "echo GID=$(id -g $USER) >> .env",
+    "setenv": "npm run setenv1 && npm run setenv2",
+    "bootstrap": "npm run setenv && cd react && npm i && npm run prepare && npm run predeploy",
+    "start": "npm run bootstrap && docker-compose up -d",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kennyhyun/thumbolidator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kennyhyun/thumbolidator/issues"
+  },
+  "homepage": "https://github.com/kennyhyun/thumbolidator#readme"
+}
