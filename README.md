@@ -66,7 +66,7 @@ Put some image files in `public` directory with sub-directories.
 $ thumbolidator ./public/images1
 $ thumbolidator ./public/images2
 $ docker-compose up -d
-$ cd example
+$ cd react
 $ npm start
 ```
 
