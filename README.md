@@ -11,6 +11,8 @@ This is still a proof of concept. Please don't use in any serious project. Check
 
 Try demo [here](https://kennyhyun.github.io/thumbolidator/)!
 
+⚠️Thumbolidator provides only **Linux** version of drop-patched jpegtran binary. please use linux to make thumbnails.
+
 ## Concept
 
 [Jpegtran](https://jpegclub.org/jpegtran/) can merge jpeg files into a big jpeg file. This will help reduce downloading many number of jpeg files through http.
@@ -75,6 +77,7 @@ $ npm start
 
 # Todo
 
+- [ ] docker container for thumbolidator genertator
 - [ ] Add unit tests
 
 ## License
